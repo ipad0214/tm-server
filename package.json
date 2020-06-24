@@ -1,0 +1,16 @@
+{
+  "name": "tournament_manager_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "tsc",
+    "run": "tsc && node ./dist/main.js"
+  },
+  "author": "kuckelsberg",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.6",
+    "express": "^4.17.1"
+  }
+}
