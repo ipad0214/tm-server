@@ -4,11 +4,14 @@ import { MainRoutes } from "./routes/main.routes";
 import { AdminRoutes } from "./routes/admin.routes";
 import { TournamentRoutes } from "./routes/tournament.routes";
 import { UserRoutes } from "./routes/user.routes";
+import { UserDatabase } from "./db/user";
+
+const portNumber: number = 2229
 
 export class Main{
 
     constructor(
-        private portNumber: number
+
     ) {
         this.app = express();
         this.config();
@@ -18,11 +21,13 @@ export class Main{
         this.tournamentRoutes.routes(this.app);
     }
 
+    public userDatabase = new UserDatabase();
+
     public app: express.Application;
     public mainRoutes: MainRoutes = new MainRoutes();
     public adminRoutes: AdminRoutes = new AdminRoutes();
     public tournamentRoutes: TournamentRoutes = new TournamentRoutes();
-    public userRoutes: UserRoutes = new UserRoutes();
+    public userRoutes: UserRoutes = new UserRoutes(this.userDatabase);
 
     private config() {
         this.app.use(bodyParser.json());
@@ -30,9 +35,12 @@ export class Main{
     }
 
     public run() {
-        this.app.listen(this.portNumber, '0.0.0.0', () => {
-            console.info(`server started on port: ${this.portNumber}`);
+        this.app.listen(portNumber, '0.0.0.0', () => {
+            console.info(`server started on port: ${portNumber}`);
         })
     }
 
 } 
+
+const main = new Main();
+main.run();

@@ -6,7 +6,7 @@ export class AdminRoutes {
     ) {}
 
     public routes(app: any): void {
-        app.route("/admin") 
+        app.route("/api/tm/admin") 
             .post((req: Request, res: Response) => {
                 let { body }  = req;
 
