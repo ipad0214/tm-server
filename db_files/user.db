@@ -1,0 +1,16 @@
+{"name":"Patrick Kuckelsberg","userName":"pakuc","email":"kuckelsberg.patrick@gmail.com","admin":false,"id":0,"_id":"szMdhC3qthou0cOP"}
+{"$$deleted":true,"_id":"szMdhC3qthou0cOP"}
+{"name":"Martin Nonnenbroich","userName":"manon","email":"m@N.de","admin":false,"id":0,"_id":"pjjHZxamYDgm6KL2"}
+{"name":"Martin Nonnenbroich","userName":"manon","email":"m@N.de","admin":false,"id":1,"_id":"5ZH0wTRlHoHeCn5v"}
+{"$$deleted":true,"_id":"5ZH0wTRlHoHeCn5v"}
+{"$$deleted":true,"_id":"pjjHZxamYDgm6KL2"}
+{"name":"Patrick Kuckelsberg","userName":"pakuc","email":"p@k.de","admin":"true","id":0,"_id":"SLtiC1ngyXfs4p1j"}
+{"name":"Stephan Wegner","userName":"stweg","email":"s@t.de","admin":"true","id":1,"_id":"QPKfH8ZksQ5psP3o"}
+{"name":"Martin Nonnenbroich","userName":"manon","email":"m@n.de","admin":false,"id":2,"_id":"vH3RjmeXH8YUFf15"}
+{"name":"Steven Tsanitlis","userName":"sttsa","email":"s@t.de","admin":false,"id":3,"_id":"pO7mBjB9YdcEyXji"}
+{"$$deleted":true,"_id":"QPKfH8ZksQ5psP3o"}
+{"$$deleted":true,"_id":"SLtiC1ngyXfs4p1j"}
+{"$$deleted":true,"_id":"pO7mBjB9YdcEyXji"}
+{"name":"Patrick Kuckelsberg","userName":"pakuc","email":"p@k.de","admin":false,"id":3,"_id":"58layu8pAJsvEy7m"}
+{"name":"Stephan Wegner","userName":"stweg","email":"s@w.de","admin":false,"id":4,"_id":"JdpT8T8uQaNEvadG"}
+{"name":"Steven Tasntilis","userName":"sttas","email":"s@t.de","admin":false,"id":5,"_id":"2Ldwjs0p2wTYrCbh"}

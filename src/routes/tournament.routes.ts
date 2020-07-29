@@ -6,7 +6,7 @@ export class TournamentRoutes {
     ) {}
 
     public routes(app: any): void {
-        app.route("/api/tm/tournament") 
+        app.route("/api/tournament") 
             .post((req: Request, res: Response) => {
                 let { body }  = req;
 

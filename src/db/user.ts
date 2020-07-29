@@ -10,11 +10,12 @@ export class UserDatabase extends DatabaseEngine {
     public insert(user: User): Promise<boolean> {
         return new Promise<boolean>(async (resolve, reject) => {
             user.id = await this.createAutoIncrementId();
-            this.db.insert(User, (err, dataSets) => {
+            this.db.insert(user, (err: any, dataSets: any) => {
                 if(err !== null) {
-                    reject(false);
+                    console.log(err);
+                    reject([]);
                 }
-                resolve(true);
+                resolve(dataSets);
             });
         });
     }
@@ -42,9 +43,9 @@ export class UserDatabase extends DatabaseEngine {
         });
     }
 
-    public delete(id: number): Promise<boolean> {        
+    public delete(id: string): Promise<boolean> {        
         return new Promise<boolean>((resolve, reject) => {
-            this.db.remove(id, {}, (err, removedSets) => {
+            this.db.remove({_id: id}, {}, (err, removedSets) => {
                 if(err != null) {
                     reject(false);
                     return;

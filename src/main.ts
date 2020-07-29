@@ -35,6 +35,9 @@ export class Main{
     }
 
     public run() {
+
+        //this.userDatabase.delete(0);
+
         this.app.listen(portNumber, '0.0.0.0', () => {
             console.info(`server started on port: ${portNumber}`);
         })
