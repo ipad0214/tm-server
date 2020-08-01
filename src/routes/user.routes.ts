@@ -32,8 +32,15 @@ export class UserRoutes {
                     return res.status(200).send(result);
                 });
             })
-            .put((req, res) => {
+            .put(async (req, res) => {
+                let { query, body } = req;
+                if(query._id === undefined) {
+                    return res.status(201).send([]);
+                }
 
+                this.userDatabase.update(body).then(users => {
+                    res.status(200).send(users);
+                })
             }) 
             .delete(async (req, res) => {
                 let { query } = req;

@@ -20,6 +20,15 @@ export class UserDatabase extends DatabaseEngine {
         });
     }
 
+    public update(obj: any): Promise<Array<User>> {
+        return new Promise<Array<User>>((resolve, reject) => {
+            this.db.update({_id: obj._id}, {obj}, {}, (err, updatedRows) => {
+                console.log(updatedRows);
+                resolve(updatedRows);
+            });
+        });
+    }
+
     public find(obj: any): Promise<Array<User>> {
         return new Promise<Array<User>>((resolve, reject) => {
             this.db.find(obj, (err, docs) => {
