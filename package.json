@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "build": "tsc",
-    "run": "tsc && node ./dist/main.js"
+    "start": "tsc && node ./dist/main.js"
   },
   "author": "kuckelsberg",
   "license": "MIT",

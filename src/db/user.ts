@@ -22,10 +22,18 @@ export class UserDatabase extends DatabaseEngine {
 
     public update(obj: any): Promise<Array<User>> {
         return new Promise<Array<User>>((resolve, reject) => {
-            this.db.update({_id: obj._id}, {obj}, {}, (err, updatedRows) => {
-                console.log(updatedRows);
-                resolve(updatedRows);
-            });
+            console.log("UPDATE");
+            try {
+                this.db.update({_id: obj._id}, {obj}, {}, (err, updatedRows) => {
+                    console.log(err);
+                    console.log(updatedRows);
+                    resolve(updatedRows);
+                });
+            } catch(error) {
+                console.log(error);
+                reject(error);
+            }
+
         });
     }
 

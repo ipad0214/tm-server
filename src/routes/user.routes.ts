@@ -34,10 +34,11 @@ export class UserRoutes {
             })
             .put(async (req, res) => {
                 let { query, body } = req;
-                if(query._id === undefined) {
+                if(query.id === undefined) {
                     return res.status(201).send([]);
                 }
 
+                console.log(body);
                 this.userDatabase.update(body).then(users => {
                     res.status(200).send(users);
                 })
