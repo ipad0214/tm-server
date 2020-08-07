@@ -1,8 +1,10 @@
 import { DatabaseEngine } from "./database.engine"
 import { User } from "./models/user.model";
+import PasswordService from "./../services/password.service"
 
 
 export class UserDatabase extends DatabaseEngine {
+    private passwordService = new PasswordService();
     constructor() {
         super("./db_files/user.db");
     }
@@ -10,9 +12,11 @@ export class UserDatabase extends DatabaseEngine {
     public insert(user: User): Promise<boolean> {
         return new Promise<boolean>(async (resolve, reject) => {
             user.id = await this.createAutoIncrementId();
+            console.log("startSalting");
+            user.password = await this.passwordService.generateNewPassword(user.username);
+            console.log("encrypted");
             this.db.insert(user, (err: any, dataSets: any) => {
                 if(err !== null) {
-                    console.log(err);
                     reject([]);
                 }
                 resolve(dataSets);
@@ -20,20 +24,11 @@ export class UserDatabase extends DatabaseEngine {
         });
     }
 
-    public update(obj: any): Promise<Array<User>> {
-        return new Promise<Array<User>>((resolve, reject) => {
-            console.log("UPDATE");
-            try {
-                this.db.update({_id: obj._id}, {obj}, {}, (err, updatedRows) => {
-                    console.log(err);
-                    console.log(updatedRows);
-                    resolve(updatedRows);
-                });
-            } catch(error) {
-                console.log(error);
-                reject(error);
-            }
-
+    public update(id: string, obj: any): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            this.db.update({ _id: id }, obj, {}, function () {
+                resolve(true);
+            });
         });
     }
 

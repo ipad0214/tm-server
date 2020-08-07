@@ -11,7 +11,6 @@ export class UserRoutes {
         app.route("/api/user") 
             .post((req: Request, res: Response) => {
                 let { body } = req;
-                console.log(body);
                 this.userDatabase.insert(body).then(() => {
                     this.userDatabase.find({}).then(result => {
                         res.status(200).send(result);
@@ -38,8 +37,7 @@ export class UserRoutes {
                     return res.status(201).send([]);
                 }
 
-                console.log(body);
-                this.userDatabase.update(body).then(users => {
+                this.userDatabase.update(query.id, body).then(users => {
                     res.status(200).send(users);
                 })
             }) 

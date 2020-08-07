@@ -3,4 +3,5 @@ export class User {
     public username: string = "";
     public email: string = "";
     public admin: boolean = false;
+    public password: string = "";
 }
