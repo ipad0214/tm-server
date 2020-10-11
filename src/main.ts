@@ -4,6 +4,7 @@ import { MainRoutes } from "./routes/main.routes";
 import { AdminRoutes } from "./routes/admin.routes";
 import { TournamentRoutes } from "./routes/tournament.routes";
 import { UserRoutes } from "./routes/user.routes";
+import { ChallengerRoutes } from './routes/challenger.matrix.routes';
 import { UserDatabase } from "./db/user";
 
 const portNumber: number = 2229
