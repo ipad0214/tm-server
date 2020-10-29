@@ -1,57 +1,40 @@
 import { Request, Response } from "express";
-import { UserDatabase } from "./../db/user"
-import { User } from "./../db/models/user.model";
+import { UserEntity } from "../db/entities";
+import { DI } from "./../db/db.controller";
 
 export class UserRoutes {
-    constructor(
-        public userDatabase: UserDatabase,
-    ) {}
+    constructor() {}
 
     public routes(app: any): void {
-        app.route("/api/user") 
+        app.route("/api/user/:id?") 
             .post((req: Request, res: Response) => {
-                let { body } = req;
-                this.userDatabase.insert(body).then(() => {
-                    this.userDatabase.find({}).then(result => {
-                        res.status(200).send(result);
+                let { body, params } = req;
+                if(!params.id) {
+                    let newUser = new UserEntity();
+                    newUser.name = body.name;
+                    newUser.email = body.email;
+                    newUser.timestamp = new Date();
+                    newUser.username = body.userName;
+                    newUser.admin = Boolean(body.admin);
+
+                    DI.userRepository.persistAndFlush(newUser).then(result => {
+                        console.log(result);
+                        DI.userRepository.findAll().then(result => res.status(200).send(result));
                     });
-                }).catch((error: any) => {
-                    console.log(error);
-                    res.status(201).send(error);
-                });
+                }
             })
             .get(async (req: Request, res: Response) => {
-                let { query } = req;
-                if(query.id === undefined) {
-                    let users = await this.userDatabase.find({});
-                    return res.status(200).send(users);
+                if(!req.params.id) {
+                    DI.userRepository.findAll().then(result => res.status(200).send(result));
+                } else {
+                    DI.userRepository.findOne({id: req.params.id}).then(result => res.status(200).send(result));
                 }
-
-                this.userDatabase.single({id: Number(query.id)}).then((result: User) => {
-                    return res.status(200).send(result);
-                });
             })
             .put(async (req, res) => {
-                let { query, body } = req;
-                if(query.id === undefined) {
-                    return res.status(201).send([]);
-                }
-
-                this.userDatabase.update(query.id, body).then(users => {
-                    res.status(200).send(users);
-                })
+  
             }) 
             .delete(async (req, res) => {
-                let { query } = req;
-                if(query.id === undefined) {
-                    return res.status(201).send([]);
-                }
-
-                this.userDatabase.delete(query.id).then(() => {
-                    this.userDatabase.find({}).then(users => {
-                        return res.status(200).send(users);
-                    });
-                });
+                let { query, params } = req;
             });
     }
 } 

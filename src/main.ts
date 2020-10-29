@@ -1,34 +1,32 @@
 import express from "express"
 import * as bodyParser from "body-parser"
-import { MainRoutes } from "./routes/main.routes";
-import { AdminRoutes } from "./routes/admin.routes";
-import { TournamentRoutes } from "./routes/tournament.routes";
-import { UserRoutes } from "./routes/user.routes";
-import { ChallengerRoutes } from './routes/challenger.matrix.routes';
-import { UserDatabase } from "./db/user";
+import { MainRoutes, AdminRoutes, TournamentRoutes, UserRoutes, ChallengerRoutes, CourtRoutes } from "./routes";
+import { DatabaseService } from "./db/db.controller";
 
 const portNumber: number = 2229
 
 export class Main{
 
-    constructor(
-
-    ) {
+    constructor() {
         this.app = express();
         this.config();
         this.adminRoutes.routes(this.app);
         this.userRoutes.routes(this.app);
         this.mainRoutes.routes(this.app);
         this.tournamentRoutes.routes(this.app);
+        this.challengerRoutes.routes(this.app);
+        this.courtRoutes.routes(this.app);
+        this.databaseService.initOrm();
     }
 
-    public userDatabase = new UserDatabase();
-
+    public databaseService: DatabaseService = new DatabaseService();
     public app: express.Application;
     public mainRoutes: MainRoutes = new MainRoutes();
     public adminRoutes: AdminRoutes = new AdminRoutes();
     public tournamentRoutes: TournamentRoutes = new TournamentRoutes();
-    public userRoutes: UserRoutes = new UserRoutes(this.userDatabase);
+    public userRoutes: UserRoutes = new UserRoutes();
+    public challengerRoutes: ChallengerRoutes = new ChallengerRoutes();
+    public courtRoutes: CourtRoutes = new CourtRoutes();
 
     private config() {
         this.app.use(bodyParser.json());
@@ -36,9 +34,6 @@ export class Main{
     }
 
     public run() {
-
-        //this.userDatabase.delete(0);
-
         this.app.listen(portNumber, '0.0.0.0', () => {
             console.info(`server started on port: ${portNumber}`);
         })
